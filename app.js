@@ -38,6 +38,8 @@ app.get("/contacts/query", async (req, res) => {
   res.json({ message: contactsRequired });
 });
 
-app.listen(1111, () => {
+const PORT = process.env.PORT || 1111;
+
+app.listen(PORT, () => {
   console.log("server runing");
 });

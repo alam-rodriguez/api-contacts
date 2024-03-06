@@ -1,0 +1,5 @@
+GET http://localhost:1111/contacts
+
+
+###
+GET http://localhost:1111/contacts/query?email=shannonblack@gmail.com&telefono=690-961-1456

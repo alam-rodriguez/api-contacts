@@ -70,38 +70,27 @@ app.get("/contacts", async (req, res) => {
   const email = req.query.email;
   const phone = req.query.phone;
   const name = req.query.name;
-  console.log(name);
-
   const contactsRequired = [];
 
-  if (email && phone && name)
-    contacts.forEach((contact) => {
+  console.log(name);
+
+  contacts.forEach((contact) => {
+    if (email && phone && name) {
       if (contact.email.includes(email) && contact.phone.includes(phone) && compararName(contact.firstName, contact.lastName, name)) contactsRequired.push(contact);
-    });
-  else if (phone && name)
-    contacts.forEach((contact) => {
+    } else if (phone && name) {
       if (contact.phone.includes(phone) && compararName(contact.firstName, contact.lastName, name)) contactsRequired.push(contact);
-    });
-  else if (email && name)
-    contacts.forEach((contact) => {
+    } else if (email && name) {
       if (contact.email.includes(email) && compararName(contact.firstName, contact.lastName, name)) contactsRequired.push(contact);
-    });
-  else if (phone && email)
-    contacts.forEach((contact) => {
+    } else if (phone && email) {
       if (contact.phone.includes(phone) && contact.email.includes(email)) contactsRequired.push(contact);
-    });
-  else if (email)
-    contacts.forEach((contact) => {
+    } else if (email) {
       if (contact.email.includes(email)) contactsRequired.push(contact);
-    });
-  else if (phone)
-    contacts.forEach((contact) => {
+    } else if (phone) {
       if (contact.phone.includes(phone)) contactsRequired.push(contact);
-    });
-  else if (name)
-    contacts.forEach((contact) => {
+    } else if (name) {
       if (compararName(contact.firstName, contact.lastName, name)) contactsRequired.push(contact);
-    });
+    }
+  });
 
   if (contactsRequired.length > 0) return res.json(contactsRequired);
   if ((email || phone || name) && contactsRequired.length == 0) return res.json({ message: "Not contacts founds" });

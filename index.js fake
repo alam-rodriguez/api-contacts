@@ -70,12 +70,37 @@ app.get("/contacts", async (req, res) => {
   const email = req.query.email;
   const phone = req.query.phone;
   const name = req.query.name;
+  // const contactsRequired = [];
+
+  console.log(contacts.firstName);
 
   const contactsRequired = contacts.filter((contact) => {
     if (name) if (compararName(contact.firstName, contact.lastName, name)) return contact;
     if (email) if (contact.email.includes(email)) return contact;
     if (phone) if (contact.phone.includes(phone)) return contact;
   });
+
+  // contacts.forEach((contact) => {
+  //   if (name) if (compararName(contact.firstName, contact.lastName, name)) contactsRequired.push(contact);
+  //   if (email) if (contact.email.includes(email)) contactsRequired.push(contact);
+  //   if (phone) if (contact.phone.includes(phone)) contactsRequired.push(contact);
+  // });
+
+  // if (email && phone && name) {
+  //   if (contact.email.includes(email) && contact.phone.includes(phone) && compararName(contact.firstName, contact.lastName, name)) contactsRequired.push(contact);
+  // } else if (phone && name) {
+  //   if (contact.phone.includes(phone) && compararName(contact.firstName, contact.lastName, name)) contactsRequired.push(contact);
+  // } else if (email && name) {
+  //   if (contact.email.includes(email) && compararName(contact.firstName, contact.lastName, name)) contactsRequired.push(contact);
+  // } else if (phone && email) {
+  //   if (contact.phone.includes(phone) && contact.email.includes(email)) contactsRequired.push(contact);
+  // } else if (email) {
+  //   if (contact.email.includes(email)) contactsRequired.push(contact);
+  // } else if (phone) {
+  //   if (contact.phone.includes(phone)) contactsRequired.push(contact);
+  // } else if (name) {
+  //   if (compararName(contact.firstName, contact.lastName, name)) contactsRequired.push(contact);
+  // }
 
   if (contactsRequired.length > 0) return res.json(contactsRequired);
   if ((email || phone || name) && contactsRequired.length == 0) return res.json({ message: "Not contacts founds" });

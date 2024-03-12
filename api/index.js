@@ -71,10 +71,9 @@ app.get("/contacts", async (req, res) => {
   const phone = req.query.phone;
   const name = req.query.name;
 
-  const contactsRequired = contacts.filter((contact) => {
-    if (name) if (compararName(contact.firstName, contact.lastName, name)) return contact;
-    if (email) if (contact.email.includes(email)) return contact;
-    if (phone) if (contact.phone.includes(phone)) return contact;
+  const contactsRequired = [...contacts].filter((contact) => {
+    if ((name && !compararName(contact.firstName, contact.lastName, name)) || (email && !contact.email.includes(email)) || (phone && !contact.phone.includes(phone))) return false;
+    return true;
   });
 
   if (contactsRequired.length > 0) return res.json(contactsRequired);

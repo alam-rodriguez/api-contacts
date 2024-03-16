@@ -91,7 +91,7 @@ app.get("/contacts", async (req, res) => {
   res.json(contacts);
 });
 
-app.post("/contact", (req, res) => {
+app.post("/contacts", (req, res) => {
   const body = req.body;
   console.log(req.body);
   contacts.push(body);

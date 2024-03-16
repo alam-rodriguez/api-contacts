@@ -1,8 +1,14 @@
 import express from "express";
 const app = express();
-import cors from "cors";
+// import cors from "cors";
 
-app.use(cors());
+// app.use(cors());
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*"); // Puedes ajustar '*' según tus necesidades
+  next();
+});
+
+app.use(express.json());
 
 const contacts = [
   {
@@ -80,8 +86,15 @@ app.get("/contacts", async (req, res) => {
   });
 
   if (contactsRequired.length > 0) return res.json(contactsRequired);
-  if ((email || phone || name) && contactsRequired.length == 0) return res.json({ message: "Not contacts founds" });
+  if ((email || phone || name) && contactsRequired.length == 0) return res.status(404).json({ message: "Not contacts founds" });
   res.json(contacts);
+});
+
+app.post("/contact", (req, res) => {
+  const body = req.body;
+  console.log(req.body);
+  contacts.push(body);
+  res.json(body);
 });
 
 const PORT = process.env.PORT || 1111;

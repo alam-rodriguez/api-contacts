@@ -3,3 +3,14 @@ GET http://localhost:1111/contacts
 
 ###
 GET http://localhost:1111/contacts/query?email=shannonblack@gmail.com
+
+###
+POST http://localhost:1111/contact
+Content-Type: application/json
+
+{
+  "firstName": "Santiago",
+  "lastName": "Chapman",
+  "email": "nealandrew@johnson-henson.com",
+  "phone": "(613)187-9227"
+}
